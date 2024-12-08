@@ -18,6 +18,8 @@ public class PersonDTO {
 
   private PersonRoles role;
 
+  private String pix;
+
   // constructors
 
   public PersonDTO(PersonEntity personEntity) {
@@ -75,4 +77,13 @@ public class PersonDTO {
   public void setRole(PersonRoles role) {
     this.role = role;
   }
+
+  public String getPix() {
+    return pix;
+  }
+
+  public void setPix(String pix) {
+    this.pix = pix;
+  }
+
 }

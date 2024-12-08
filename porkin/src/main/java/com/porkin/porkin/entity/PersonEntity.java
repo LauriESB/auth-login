@@ -1,6 +1,7 @@
 package com.porkin.porkin.entity;
 
 import com.porkin.porkin.dto.PersonDTO;
+import com.porkin.porkin.paymentMethods.entity.PixEntity;
 import com.porkin.porkin.roles.PersonRoles;
 import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -34,6 +35,10 @@ public class PersonEntity implements UserDetails {
 
   @Column
   private PersonRoles role;
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "pixId")
+  private PixEntity pix;
 
   // constructors
 
@@ -131,6 +136,14 @@ public class PersonEntity implements UserDetails {
 
   public void setRole(PersonRoles role) {
     this.role = role;
+  }
+
+  public String getPix() {
+    return pix != null ? pix.getPix() : "Chave pix não cadastrada";
+  }
+
+  public void setPix(PixEntity pix) {
+    this.pix = pix;
   }
 
   // equals and hashCode

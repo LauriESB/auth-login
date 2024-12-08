@@ -5,6 +5,7 @@ import com.porkin.porkin.dto.LoginResponseDTO;
 import com.porkin.porkin.dto.PersonDTO;
 import com.porkin.porkin.entity.PersonEntity;
 import com.porkin.porkin.repository.PersonRepository;
+import com.porkin.porkin.roles.PersonRoles;
 import com.porkin.porkin.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public class AuthControler {
     if(this.personRepository.findByUsername(personDTO.getUsername()) != null) return ResponseEntity.badRequest().build();
     String encryptedPasswrod = new BCryptPasswordEncoder().encode(personDTO.getPassword());
     PersonEntity personEntity = new PersonEntity(personDTO.getName(), personDTO.getUsername(), personDTO.getEmail(), encryptedPasswrod, personDTO.getRole());
+
+    personEntity.setRole(PersonRoles.USER);
 
     this.personRepository.save(personEntity);
     return ResponseEntity.ok().build();
