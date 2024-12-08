@@ -10,9 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "person")
@@ -44,6 +42,14 @@ public class PersonEntity implements UserDetails {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "payPalId")
   private PayPalEntity payPal;
+
+  @OneToMany(mappedBy = "fkPersonUser", cascade = CascadeType.ALL, orphanRemoval = true)
+  private Set<FriendshipEntity> friendships = new HashSet<>();
+
+  @ElementCollection
+  @CollectionTable(name = "friendIDs", joinColumns = @JoinColumn(name = "username"))
+  @Column(name = "friendID")
+  private Set<String> friendsUsernames = new HashSet<>();
 
   // constructors
 
@@ -158,6 +164,27 @@ public class PersonEntity implements UserDetails {
   public void setPayPal(PayPalEntity payPal) {
     this.payPal = payPal;
   }
+
+  public Set<FriendshipEntity> getFriendships() {
+    return friendships;
+  }
+
+  public void setFriendships(FriendshipEntity friendships) {
+    this.friendships.add(friendships);
+  }
+
+  public void setFriendships(Set<FriendshipEntity> friendships) {
+    this.friendships = friendships;
+  }
+
+  public Set<String> getFriendsUsernames() {
+    return friendsUsernames;
+  }
+
+  public void setFriendsUsernames(Set<String> friendsUsernames) {
+    this.friendsUsernames = friendsUsernames;
+  }
+
 
   // equals and hashCode
 
