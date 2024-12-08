@@ -1,6 +1,7 @@
 package com.porkin.porkin.entity;
 
 import com.porkin.porkin.dto.PersonDTO;
+import com.porkin.porkin.paymentMethods.entity.PayPalEntity;
 import com.porkin.porkin.paymentMethods.entity.PixEntity;
 import com.porkin.porkin.roles.PersonRoles;
 import jakarta.persistence.*;
@@ -39,6 +40,10 @@ public class PersonEntity implements UserDetails {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "pixId")
   private PixEntity pix;
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "payPalId")
+  private PayPalEntity payPal;
 
   // constructors
 
@@ -144,6 +149,14 @@ public class PersonEntity implements UserDetails {
 
   public void setPix(PixEntity pix) {
     this.pix = pix;
+  }
+
+  public String getPayPal() {
+    return payPal != null ? payPal.getPayPal() : "PayPal não cadastrado";
+  }
+
+  public void setPayPal(PayPalEntity payPal) {
+    this.payPal = payPal;
   }
 
   // equals and hashCode

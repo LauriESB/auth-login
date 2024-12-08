@@ -20,6 +20,8 @@ public class PersonDTO {
 
   private String pix;
 
+  private String payPal;
+
   // constructors
 
   public PersonDTO(PersonEntity personEntity) {
@@ -84,6 +86,14 @@ public class PersonDTO {
 
   public void setPix(String pix) {
     this.pix = pix;
+  }
+
+  public String getPayPal() {
+    return payPal;
+  }
+
+  public void setPayPal(String payPal) {
+    this.payPal = payPal;
   }
 
 }
