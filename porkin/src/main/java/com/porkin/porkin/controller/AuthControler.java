@@ -1,9 +1,11 @@
 package com.porkin.porkin.controller;
 
 import com.porkin.porkin.dto.AuthDTO;
+import com.porkin.porkin.dto.LoginResponseDTO;
 import com.porkin.porkin.dto.PersonDTO;
 import com.porkin.porkin.entity.PersonEntity;
 import com.porkin.porkin.repository.PersonRepository;
+import com.porkin.porkin.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +27,17 @@ public class AuthControler {
   @Autowired
   private PersonRepository personRepository;
 
+  @Autowired
+  private TokenService tokenService;
+
   @PostMapping("/login")
   public ResponseEntity login(@RequestBody @Valid AuthDTO authDTO) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(authDTO.username(), authDTO.password());
     var auth = this.authenticationManager.authenticate(usernamePassword);
 
-    return ResponseEntity.ok().build();
+    var token = tokenService.generateToken((PersonEntity) auth.getPrincipal());
+
+    return ResponseEntity.ok(new LoginResponseDTO(token));
   }
 
   @PostMapping("/register")
