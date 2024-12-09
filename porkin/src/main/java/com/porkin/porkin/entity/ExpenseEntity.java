@@ -38,9 +38,6 @@ public class ExpenseEntity {
   @JoinColumn(name = "idExpenseCreator")
   private PersonEntity idExpenseCreator;
 
-  @Column(nullable = true)
-  private Boolean notificationSent;
-
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "pixId")
   private PixEntity pix;
@@ -52,12 +49,9 @@ public class ExpenseEntity {
   @OneToMany(mappedBy = "expense", cascade = CascadeType.ALL)
   private List<ExpenseSplitEntity> expenseDetails;
 
-
-
-  // despesEntity constructors
+  // constructors
 
   public ExpenseEntity(ExpenseDTO expenseDTO) {
-    this.notificationSent = false;
     BeanUtils.copyProperties(expenseDTO, this);
   }
 
@@ -121,14 +115,6 @@ public class ExpenseEntity {
 
   public void setIdExpenseCreator(PersonEntity idExpenseCreator) {
     this.idExpenseCreator = idExpenseCreator;
-  }
-
-  public Boolean getNotificationSent() {
-    return notificationSent;
-  }
-
-  public void setNotificationSent(Boolean notificationSent) {
-    this.notificationSent = notificationSent;
   }
 
   public String getPix() {
