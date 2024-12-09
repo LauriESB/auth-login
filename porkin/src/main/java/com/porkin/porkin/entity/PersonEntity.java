@@ -57,6 +57,10 @@ public class PersonEntity implements UserDetails {
   @OneToMany(mappedBy = "person")
   private List<ExpenseSplitEntity> splitExpenses;
 
+  @OneToOne
+  @JoinColumn
+  private ImageData userProfilePicture;
+
   // constructors
 
   public PersonEntity(PersonDTO personDTO) {
@@ -205,6 +209,14 @@ public class PersonEntity implements UserDetails {
 
   public void setSplitExpenses(List<ExpenseSplitEntity> splitExpenses) {
     this.splitExpenses = splitExpenses;
+  }
+
+  public ImageData getUserProfilePicture() {
+    return userProfilePicture;
+  }
+
+  public void setUserProfilePicture(ImageData userProfilePicture) {
+    this.userProfilePicture = userProfilePicture;
   }
 
   // equals and hashCode
