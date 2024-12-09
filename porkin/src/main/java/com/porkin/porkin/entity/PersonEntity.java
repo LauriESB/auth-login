@@ -51,6 +51,12 @@ public class PersonEntity implements UserDetails {
   @Column(name = "friendID")
   private Set<String> friendsUsernames = new HashSet<>();
 
+  @OneToMany(mappedBy = "idExpenseCreator", cascade = CascadeType.ALL)
+  private List<ExpenseEntity> expenses;
+
+  @OneToMany(mappedBy = "person")
+  private List<ExpenseSplitEntity> splitExpenses;
+
   // constructors
 
   public PersonEntity(PersonDTO personDTO) {
@@ -185,6 +191,21 @@ public class PersonEntity implements UserDetails {
     this.friendsUsernames = friendsUsernames;
   }
 
+  public List<ExpenseEntity> getExpenses() {
+    return expenses;
+  }
+
+  public void setExpenses(List<ExpenseEntity> expenses) {
+    this.expenses = expenses;
+  }
+
+  public List<ExpenseSplitEntity> getSplitExpenses() {
+    return splitExpenses;
+  }
+
+  public void setSplitExpenses(List<ExpenseSplitEntity> splitExpenses) {
+    this.splitExpenses = splitExpenses;
+  }
 
   // equals and hashCode
 
