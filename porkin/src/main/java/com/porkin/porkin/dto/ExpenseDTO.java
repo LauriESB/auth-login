@@ -20,6 +20,8 @@ public class ExpenseDTO {
 
   private boolean completed;
 
+  //private String message;
+
   private String idExpenseCreator;
 
   private boolean notificationSend;

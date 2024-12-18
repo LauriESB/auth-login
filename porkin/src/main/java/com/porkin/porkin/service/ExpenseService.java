@@ -11,9 +11,11 @@ import com.porkin.porkin.repository.ExpenseSplitRepository;
 import com.porkin.porkin.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,8 +55,6 @@ public class ExpenseService {
     expenseEntity.setIdExpenseCreator(idexpensecreator);
 
     List<ExpenseSplitEntity> split = new ArrayList<>();
-
-    //expenseRepository.save(expenseEntity);
 
     expenseDTO.getExpenseDetails().forEach(expenseSplitDTO -> {
 
@@ -147,6 +147,13 @@ public class ExpenseService {
       }).collect(Collectors.toList());
 
       expenseSplitRepository.saveAll(newSplits);
+
+
+      if (newSplits.stream().allMatch(ExpenseSplitEntity::isPaid)) {
+        expenseEntity.setCompleted(true);
+        //expenseEntity.setMessage("Despesa finalizada");
+      }
+
 
       expenseEntity.setExpenseDetails(newSplits);
 

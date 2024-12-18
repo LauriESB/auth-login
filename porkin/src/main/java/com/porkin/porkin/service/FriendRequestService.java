@@ -76,6 +76,9 @@ public class FriendRequestService {
   }
 
   public void rejectRequest(String user, String friend) {
+
+    System.out.println("Rejecting friend request for user: " + user + ", friend: " + friend);
+
     FriendRequestEntity friendRequestEntity = friendRequestRepository.findRequestByPersonReceiverAndPersonRequester(user, friend).get();
     friendRequestRepository.delete(friendRequestEntity);
   }

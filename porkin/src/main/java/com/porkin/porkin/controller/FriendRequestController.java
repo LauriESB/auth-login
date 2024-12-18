@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "friendRequest")
+@RequestMapping(value = "/friendRequest")
 public class FriendRequestController {
 
   @Autowired
@@ -32,7 +32,7 @@ public class FriendRequestController {
   }
 
   @PostMapping("/reject/{user}/{friend}")
-  public ResponseEntity<String> rejectRequest(@PathVariable String user, String friend) {
+  public ResponseEntity<String> rejectRequest(@PathVariable String user, @PathVariable String friend) {
     friendRequestService.rejectRequest(user, friend);
     return ResponseEntity.ok("Amizade negada!");
   }

@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -31,6 +32,10 @@ public class PersonEntity implements UserDetails {
 
   @Column(nullable = false)
   private String password;
+
+  private String recoveryCode;
+
+  private LocalDateTime recoveryCodeExpiration;
 
   @Column
   private PersonRoles role;
@@ -217,6 +222,22 @@ public class PersonEntity implements UserDetails {
 
   public void setUserProfilePicture(ImageData userProfilePicture) {
     this.userProfilePicture = userProfilePicture;
+  }
+
+  public String getRecoveryCode() {
+    return recoveryCode;
+  }
+
+  public void setRecoveryCode(String recoveryCode) {
+    this.recoveryCode = recoveryCode;
+  }
+
+  public LocalDateTime getRecoveryCodeExpiration() {
+    return recoveryCodeExpiration;
+  }
+
+  public void setRecoveryCodeExpiration(LocalDateTime recoveryCodeExpiration) {
+    this.recoveryCodeExpiration = recoveryCodeExpiration;
   }
 
   // equals and hashCode
